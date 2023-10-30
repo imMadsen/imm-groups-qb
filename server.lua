@@ -1,3 +1,5 @@
+local QBCore = exports["qb-core"]:GetCoreObject()
+
 exports("getMemberFromGroupByCitizenId", function(...) exports["imm-groups"]:getMemberFromGroup(...) end)
 exports("addMemberToGroupByCitizenId", function(...) exports["imm-groups"]:addMemberToGroup(...) end)
 exports("removeMemberFromGroupByCitizenId", function(...) exports["imm-groups"]:removeMemberFromGroup(...) end)
@@ -20,7 +22,7 @@ exports("addMemberToGroupBySource", function(groupId, source)
         return false
     end
 
-    return exports["imm-groups"]:getMemberFromGroup(groupId, player.PlayerData.citizenid)
+    return exports["imm-groups"]:addMemberToGroup(groupId, player.PlayerData.citizenid)
 end)
 
 exports("removeMemberFromGroupBySource", function(groupId, source)
@@ -46,8 +48,7 @@ exports("setMemberStateBySource", function(groupId, source, key, value)
     if (not player) then
         return false
     end
-
-    return exports["imm-groups"]:setMemberStateBySource(groupId, player.PlayerData.citizenid, key, value)
+    return exports["imm-groups"]:setMemberState(groupId, player.PlayerData.citizenid, key, value)
 end)
 
 exports("getGroupsFromMemberBySource", function(source)
@@ -56,5 +57,5 @@ exports("getGroupsFromMemberBySource", function(source)
         return false
     end
 
-    return exports["imm-groups"]:getGroupsFromMember(groupId, player.PlayerData.citizenid, key, value)
+    return true, exports["imm-groups"]:getGroupsFromMember(player.PlayerData.citizenid)
 end)
